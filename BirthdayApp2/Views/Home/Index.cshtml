@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @*Buradan girilen bilgiler veritabanına asenkron olarak yollanır.*@
+        @using (Ajax.BeginForm("KatilanAra", "Home"
+        , new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            LoadingElementId = "ajax-loading",
+            UpdateTargetId = "results"
+        }))
+        {@*<form id="FormArama" method="get" action="@Url.Action("KatilanAra","Home")" >*@
+        <div class="input-group">
+            <input name="q" class="form-control" placeholder="Kelime Gir">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">Ara!</button>
+            </span>
+        </div>
+        }
+        @*</form>*@
+        @*<script>
+            $("FormArama").submit(function (event) {
+                event.preventDefault();
+
+                var form = $(this); //o anki formu alırız.  
+                $("#results")
+                    .html("<img style='width:100px;'src='@Url.Content("~/gif/ajax.gif")'/> ")
+                    .load(form.attr("action"), form.serialize()); //form üzerindeki bilgileri getirir.
+            });
+        </script>*@
+
+
+        <div id="results">
+
+        </div>
+        <div class="text-center">
+            <img id="ajax-loading" src="@Url.Content("~/gif/ajax.gif")"
+                 style="display:none; width:100px;">
+        </div>
+
+    </div>
+</div>
+
+<div class="text-center">
+    <h2 style="color:red;">Harika Bir Doğum Günü Partisi Olacak!</h2>
+    <h3 style="color:red;">Sende Davetlisin!</h3>
+    @Html.ActionLink("Geliyor musun?", "DavetiyeFormu", null, new { @class = "btn btn-primary" })
+
+    <span id="gelenler">
+
+        @Ajax.ActionLink("Gelen Listesi",
+       "Katilanlar",
+       null,
+       new AjaxOptions()
+       {
+
+           UpdateTargetId = "gelenler",  //güncellenecek olan id yi ister.
+           HttpMethod = "GET",
+           InsertionMode = InsertionMode.InsertAfter,   //Get metoduyla getirilen içeriğin nereye getirileceğini belirler.
+           LoadingElementId = "ajax-loading"
+       },
+       new { @class = "btn btn-success" })
+    </span>
+    <br />
+</div>
+
