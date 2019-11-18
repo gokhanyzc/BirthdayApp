@@ -27,13 +27,7 @@ namespace BirthdayApp2.Models
                 KatilmaDurumu = true
             });
 
-            _liste.Add("Melike", new DavetiyeModel
-            {
-                Ad = "Melike",
-                Eposta = "melikevarlik@gmail.com",
-                KatilmaDurumu = false
-
-            });
+           
 
         }
             public static void Add(DavetiyeModel model)
